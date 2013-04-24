@@ -182,7 +182,7 @@ if __name__ == "__main__":
     print()
     
     o = h.generate(1000)
-    '''
+    
     print("Generated observable sequence ", o[0])
     print("from state sequence ", o[1])
     
@@ -195,6 +195,6 @@ if __name__ == "__main__":
     
     print("Wikipedia says ")
     print(viterbi(o[0], states, start_probability, transition_probability, emission_probability))
-    '''
+    
     extract_model([o])
 
