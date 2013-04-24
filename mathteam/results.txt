@@ -1,0 +1,84 @@
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Vibha:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Elim:      R1: 2.00, R4: 3.00, R5: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Ning:      R1: 3.00, R2: 3.00, R6: 3.00, Total: 9.00
+Sayak:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amelia:    R1: 3.00, R4: 3.00, R5: 3.00, Total: 9.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Team total: 85.00
+
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Vibha:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Ning:      R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Sayak:     R2: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Amelia:    R1: 3.00, R4: 3.00, R6: 3.00, Total: 9.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Cathy:     R1: 2.00, R4: 3.00, R5: 3.00, Total: 8.00
+Team total: 85.00
+
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Vibha:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ning:      R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Sayak:     R2: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Amelia:    R1: 3.00, R4: 3.00, R6: 3.00, Total: 9.00
+Saavan:    R1: 2.00, R4: 3.00, R5: 3.00, Total: 8.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Team total: 85.00
+
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Vibha:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Ning:      R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Sayak:     R2: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Amelia:    R1: 3.00, R4: 3.00, R6: 3.00, Total: 9.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Elim:      R1: 2.00, R4: 3.00, R5: 3.00, Total: 8.00
+Team total: 85.00
+
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R1: 2.00, R4: 3.00, R5: 3.00, Total: 8.00
+Vibha:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Ning:      R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Sayak:     R2: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Amelia:    R1: 3.00, R4: 3.00, R6: 3.00, Total: 9.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Donald:    R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Team total: 85.00
+
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Vibha:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Ning:      R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Sayak:     R2: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Amelia:    R1: 3.00, R4: 3.00, R6: 3.00, Total: 9.00
+Saavan:    R1: 2.00, R4: 3.00, R5: 3.00, Total: 8.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Team total: 85.00
+
+Alex:      R4: 3.00, R5: 2.00, R6: 3.00, Total: 8.00
+Richard:   R1: 2.00, R4: 3.00, R6: 3.00, Total: 8.00
+Vibha:     R2: 3.00, R3: 2.00, R5: 3.00, Total: 8.00
+Amy:       R2: 3.00, R3: 3.00, R5: 3.00, Total: 9.00
+Ashvin:    R1: 3.00, R2: 3.00, R3: 2.00, Total: 8.00
+Donald:    R4: 3.00, R5: 3.00, R6: 3.00, Total: 9.00
+Ning:      R1: 3.00, R2: 3.00, R6: 3.00, Total: 9.00
+Sayak:     R2: 3.00, R3: 2.00, R6: 3.00, Total: 8.00
+Amelia:    R1: 3.00, R4: 3.00, R5: 3.00, Total: 9.00
+George:    R1: 3.00, R3: 3.00, R4: 3.00, Total: 9.00
+Team total: 85.00
+
