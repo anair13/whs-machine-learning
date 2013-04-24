@@ -8,7 +8,7 @@ Operating Instructions
 ----------------------
 Each directory is a separate project.
 
-Artificial neural nets - `ann` - is a form of function approximation learning. 
+Artificial neural nets - `ann` - a form of function approximation learning. 
 The project includes an attempt at optical character recognition.
 
 Genetic algorithms - `ga` - optimize a given function. The hungarian 

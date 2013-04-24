@@ -35,7 +35,7 @@ if __name__ == "__main__":
         training_examples.append(l)
     layers = [100, 50, 36]
 
-    n = learn(layers, training_examples, cont_output, 1)
+    n = learn(layers, training_examples * 10, cont_output, .5)
     n.save("ocr_save")
 
     # model built, now test
