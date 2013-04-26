@@ -1,5 +1,8 @@
 """Utilities to transform pictures to 136-len strings
 warning: PIL only exists in python-2
+
+Data from:
+- http://mldata.org/repository/data/viewslug/chars74k-english-hnd/
 """
 
 from PIL import Image
@@ -55,6 +58,7 @@ dirs = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "37", "38", 
 def get_all_bits():
     results = open("ocr.txt", "w")
     for i in range(len(dirs)):
+        print("starting folder", dirs[i])
         path = "characters/Hnd/Img/Sample0" + dirs[i] + "/*.png"
         for file in glob.glob(path):
             try:

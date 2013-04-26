@@ -95,7 +95,9 @@ def learn(layers, training_examples, o_type, learning_rate = .01):
         """print("training", t, end = " ")
         print("error before:", n.error(t), end = " ")
         print(k, "outputs", n.output(t))"""
-        print("learned example", k)
+        
+        if k % 100 == 0:
+            print("learned example", k)
 
         backwards_propagate(n, t[:num_inputs], t[-num_outputs:], learning_rate)
         

@@ -43,6 +43,10 @@ class HMM:
         print("Model:")
         print(self.states)
         print(self.observations)
+        print("Start, transition, emission:")
+        print(self.start)
+        print(self.transition)
+        print(self.emission)
         # print(self.start_matrix)
         # print(self.trans_matrix)
         # print(self.emiss_matrix)
@@ -148,11 +152,7 @@ def extract_model(supervised_sequences):
             p_s[s2] = list(zip(first_state, second_state)).count((s1, s2)) / i
             transition[s1] = p_s
     
-    print(u_states)
-    print(u_observations)
-    print(emission)
-    print(transition)
-    print(start)
+    return HMM(start, transition, emission)
     
 def states_at_time(state_1, state_2, t, observations, hmm):
     """P of state_1 at t and state_2 at t+1 and observations[t+1] is seen"""

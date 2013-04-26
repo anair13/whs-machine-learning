@@ -1,9 +1,7 @@
 """Learns to do optical character recognition using artificial neural nets"""
 
-print("starting")
-
 import pickle
-print("imported pickle")
+from network import *
 
 def output_to_text(out):
     """Makes neuron output readable"""
@@ -11,7 +9,7 @@ def output_to_text(out):
     i = i + (87 if i > 9 else 48)
     return chr(i)
     
-from network import *
+
     
 def print_bitstring(out, size = 10):
     for i in range(size):
@@ -25,6 +23,54 @@ def get_char(n, input_string):
     i = i + (87 if i > 9 else 48)
     return chr(i)
 
+
+characters = "abcdefghijklmnopqrstuvwxyz0123456789"
+def counting(stats):
+    results = {}
+    
+    for char in characters:
+        #don't actually need true negative
+        info = {"tp":0, "fp":0, "fn":0}
+        results[char] = info
+
+    for char in stats.keys():
+        for output in stats[char].keys():
+            if output == char:
+                results[char]["tp"] += stats[char][output] 
+            if output != char:
+                results[char]["fn"] += stats[char][output]
+                results[output]["fp"] += stats[char][output]
+    return results
+                
+def precision(r):
+    """
+    Calculates and returns the precision of the tree
+    precision = (true positives / (true positives + false positives))
+    """
+    return{c: 1.0 * r[c]['tp']/(r[c]['tp']+r[c]['fp']) if r[c]['tp']+r[c]['fp'] != 0 else 0 for c in r}
+        
+def recall(r):
+    """
+    Calculates and returns the recall of the tree
+    precision = (true positives / (true positives + false negative))
+    """
+    return{c: 1.0 * r[c]['tp']/(r[c]['tp']+r[c]['fn']) if r[c]['tp']+r[c]['fn'] != 0 else 0 for c in r}
+    
+def pretty_print(stats):
+    results = counting(stats)
+    p = precision(results)
+    r = recall(results)
+    
+    print("\nStats")
+    print("char\t", "results")
+    for char in characters:
+        print(char, "\t", stats[char]) if char in stats.keys() else print(char, "\t", "{}")
+    
+    print("\nPrecision and Recall")
+    print("char\t", "precision\t", "recall")
+    for char in characters:
+        print(char, "\t", "{:.4f}\t\t".format(p[char]), "{:.4f}".format(r[char]))
+            
 if __name__ == "__main__":
     training_examples = []
     for line in open('ocr.txt', 'r'):
@@ -47,6 +93,6 @@ if __name__ == "__main__":
         letter_stat = stats.setdefault(t[0], {})
         letter_stat[t[1]] = letter_stat.setdefault(t[1], 0) + 1
         stats[t[0]] = letter_stat
-    print(stats)
+    pretty_print(stats)
     print(len(tests), "test cases")
     print(sum(e == o for e, o in tests), "correct")

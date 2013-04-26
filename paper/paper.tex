@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -6,14 +6,28 @@
 \usepackage{graphicx}
 \usepackage{parskip}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
-\author{Kevin Gao,
-Matt Li,
-Ashvin Nair, Saavan Patel}
+
+\author{Kevin Gao, Matt Li, Ashvin Nair, Saavan Patel}
 \title{WHS Machine Learning: Lessons Learned}
+
 \begin{document}
 
 \maketitle
 
 For this yearlong autodidactic pioneering computer science course at Winchester High School, we tackled introductory machine learning topics with the intention of understanding the algorithm and implementing them in code. For each topic, we also used the algorithm on real data.
+
+\section{Decision Trees}
+
+Decision trees classify and predict from learned data. We applied the decision tree program to car buyers, the census, congressional voting records, and CPU performance data.
+
+\section{Genetic Algorithms}
+
+Genetic algorithms find parameters to optimize a given function. The hungarian algorithm - ha - is a specific algorithm to maximally select elements of a matrix. We used it in combination with a genetic algorithm to create mathteam, a program to optimize math team performance.
+
+\section{Hidden Markov Models} 
+Hidden markov model algorithms perform pattern recognition. From an extracted model, the Viterbi algorithm allows prediction of underlying states from observed states.
+
+\section{Artificial Neural Nets}
+A form of function approximation learning. The project includes a neural net for optical character recognition.
 
 \end{document}
