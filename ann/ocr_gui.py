@@ -1,13 +1,10 @@
 import pickle
-version = 3
-try: # python 3
-    from tkinter import *
-    from ocr import *
-except ImportError: # python 2
-    version = 2
-    from Tkinter import *
-    from PIL import Image
-    from img_to_txt import *
+from ocr import *
+from Tkinter import *
+from PIL import *
+import ImageDraw
+from img_to_txt import *
+from network import *
 
 class PixelBoard:
     
@@ -56,30 +53,31 @@ class DrawingBoard:
     def __init__(self, master, network):
 
         self.master = master
-        self.square = 50
+        self.square = 500
         self.radius = 15
         self.network = network
         self.up = False
         
-        # self.image = Image.new("RGB", (1200, 900), (255, 255, 255))
-        # self.draw = ImageDraw.Draw(image1)
+        self.image = Image.new("RGB", (self.square, self.square), (255, 255, 255))
+        self.draw = ImageDraw.Draw(self.image)
         
         self.menubar = Menu(self.master)
         self.menubar.add_command(label="Exit", command=self.master.quit)
         self.master.config(menu=self.menubar)
     
-        self.canvas = Canvas(self.master, bg = "white", width = 1200, height = 900)
+        self.canvas = Canvas(self.master, bg = "white", width = self.square, height = self.square)
         self.canvas.bind("<Motion>", self.motion)
         self.canvas.bind("<ButtonPress-1>", self.click)
         self.canvas.bind("<ButtonRelease-1>", self.release)
         self.master.bind("<Configure>", self.resize)
+        self.master.bind("<Return>", self.recognize)
         self.canvas.pack(side=LEFT)
     
     def resize(self, event):
         old_square = self.square
-        self.square = min(self.canvas.winfo_width(), self.canvas.winfo_height()) / 10
+        self.square = min(self.canvas.winfo_width(), self.canvas.winfo_height())
         if self.square == 0:
-            self.square = 50
+            self.square = 500
         self.update()
     
     def click(self, event):
@@ -96,15 +94,35 @@ class DrawingBoard:
         self.canvas.create_oval(event.x - self.radius, event.y - self.radius, 
                                 event.x + self.radius, event.y + self.radius,
                                 fill="black")
+        self.draw.ellipse((event.x - self.radius, event.y - self.radius, 
+                          event.x + self.radius, event.y + self.radius), fill=256)
     
     def release(self, event):
         self.up = False
+    
+    def recognize(self, event):
+        self.image.save('saves/temp.png')
+        bitstring = get_bits(open('saves/temp.png', 'r'), 10)
+        # bitstring = image_to_bits(self.image, 10)
+        print(bitstring)
+        l = []
+        for i in bitstring:
+            l.append(float(i))
+        print(get_char(self.network, l))
+        
+        self.image = Image.new("RGB", (self.square, self.square), (255, 255, 255))
+        self.draw = ImageDraw.Draw(self.image)
+        self.canvas.delete(ALL)
         
     def update(self):
         self.canvas.update_idletasks()
 
 if __name__ == "__main__":
     root = Tk()
-    n = load_network('ocr_save')
-    app = PixelBoard(root, n)
-    root.mainloop()
+    
+    try:
+        n = load_network('ocr_save')
+        app = DrawingBoard(root, n)
+        root.mainloop()
+    except IOError:
+        print("run ocr.py first!")

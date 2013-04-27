@@ -1,14 +1,22 @@
+import pickle
 import math
 import random
-import pickle
 
-class Network:
+class Network(object):
     """Artificial neural network maps inputs to outputs"""
     
     def __init__(self, connections, layers, o_type):
         self.layers = layers
         self.neurons = [Neuron(o_type) for i in range(sum(layers))]
         self.connections = connections # neurons x neurons array
+    
+    def __str__(self):
+        s = ""
+        for n in self.connections:
+            for i in n:
+                s = s + ("  " if i >= 0 else " ") + "%0.3f" % i
+            s = s + '\n'
+        return s
         
     def output(self, inputs):
         cur_outputs = []
@@ -20,14 +28,6 @@ class Network:
             cur_outputs.append(j)
         return cur_outputs[-self.layers[-1]:]
     
-    def __str__(self):
-        s = ""
-        for n in self.connections:
-            for i in n:
-                s = s + ("  " if i >= 0 else " ") + "%0.3f" % i
-            s = s + '\n'
-        return s
-    
     def error(self, training_example):
         output = self.output(training_example)
         expected_output = training_example[-self.layers[-1]:]
@@ -36,7 +36,7 @@ class Network:
     
     def save(self, name):
         """Pickles neural net into name.txt""" 
-        pickle.dump(self, open('saves/' + name + '.txt', 'wb'))
+        pickle.dump(self, open('saves/' + name + '.txt', 'wb'), protocol = 2)
 
 def load_network(name):
     """Unpickles neural net from name.txt"""
@@ -70,6 +70,7 @@ def learn(layers, training_examples, o_type, learning_rate = .01):
     layers = [num_inputs, hidden_layer_1, ... , num_outputs]
     training_examples = [(input1, input2, input3, ..., output1, output2)]
     """
+
     num_inputs = layers[0]
     num_outputs = layers[-1]
     
@@ -82,7 +83,10 @@ def learn(layers, training_examples, o_type, learning_rate = .01):
                 j = l - 1
                 break
         for k in range(sum(layers[:j])):
-            c.append(random.random() * 2 - 1)
+            if k > sum(layers[:j]) - layers[j]:
+                c.append(random.random() * 2 - 1)
+            else:
+                c.append(0)
         for k in range(sum(layers[j:])):
             c.append(0)
         connections.append(c)

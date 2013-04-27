@@ -6,31 +6,40 @@ Data from:
 """
 
 from PIL import Image
+from itertools import product
 import glob, os
 
 def get_bits(file, size):
-    '''Takes the file path to an image and a size
+    image = Image.open(file)
+    return image_to_bits(image, size)
+
+def image_to_bits(image, size):
+    '''Takes an image and a size
     Maps the image onto a size x size grid and returns each pixel
     (0 for white, 1 for black) in a string of length size * size
     '''
-    im = Image.open(file)
-    pix = im.load()
-    box = im.getbbox()
-    maxx = box[0]
-    maxy = box[1]
-    minx = box[2]
-    miny = box[3]
-    for x in range(box[0], box[2]):
-        for y in range(box[1], box[3]):
-            if pix[x, y] == (0, 0, 0):
-                if x < minx:
-                    minx = x
-                if x > maxx:
-                    maxx = x
-                if y < miny:
-                    miny = y
-                if y > maxy:
-                    maxy = y
+    pix = image.load()
+    box = image.getbbox()
+    minx = box[0]
+    miny = box[1]
+    maxx = box[2]
+    maxy = box[3]
+    for x, y in product(range(minx, maxx), range(miny, maxy)):
+        if pix[x, y] == (0, 0, 0):
+            minx = x
+            break
+    for x, y in product(range(box[2] - 1, minx, -1), range(miny, maxy)):
+        if pix[x, y] == (0, 0, 0):
+            maxx = x
+            break
+    for y, x in product(range(miny, maxy), range(minx, maxx)):
+        if pix[x, y] == (0, 0, 0):
+            miny = y
+            break
+    for y, x in product(range(box[3] - 1, miny, -1), range(minx, maxx)):
+        if pix[x, y] == (0, 0, 0):
+            maxy = y
+            break
     difx = maxx - minx
     dify = maxy - miny
     if difx > dify:
@@ -41,10 +50,10 @@ def get_bits(file, size):
         dif = dify - difx
         minx -= dif / 2 + dif % 2
         maxx += dif / 2
-    im = im.crop((minx, miny, maxx, maxy))
-    im.thumbnail((size, size))
+    image = image.crop((minx, miny, maxx, maxy))
+    image.thumbnail((size, size))
     str = ""
-    pix = im.load()
+    pix = image.load()
     for x in range(size):
         for y in range(size):
             if pix[x, y] == (0, 0, 0):
