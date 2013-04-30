@@ -27,7 +27,7 @@ training_examples = os
 
 print(training_examples)
 
-n = learn(layers, training_examples, cont_output, 1)
+n = learn(layers, training_examples * 1000, cont_output, 1)
 
 tests = []
 for i in training_examples:

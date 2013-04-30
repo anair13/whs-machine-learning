@@ -95,16 +95,13 @@ class DrawingBoard:
                                 event.x + self.radius, event.y + self.radius,
                                 fill="black")
         self.draw.ellipse((event.x - self.radius, event.y - self.radius, 
-                          event.x + self.radius, event.y + self.radius), fill=256)
+                          event.x + self.radius, event.y + self.radius), fill="black")
     
     def release(self, event):
         self.up = False
     
     def recognize(self, event):
-        self.image.save('saves/temp.png')
-        bitstring = get_bits(open('saves/temp.png', 'r'), 10)
-        # bitstring = image_to_bits(self.image, 10)
-        print(bitstring)
+        bitstring = image_to_bits(self.image, 10)
         l = []
         for i in bitstring:
             l.append(float(i))
