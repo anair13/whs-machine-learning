@@ -16,18 +16,54 @@
 
 For this yearlong autodidactic pioneering computer science course at Winchester High School, we tackled introductory machine learning topics with the intention of understanding the algorithm and implementing them in code. For each topic, we also used the algorithm on real data.
 
+The purpose of this paper is to publicize simple implementations of introductory machine learning algorithms in an accessible and clear way.
+
 \section{Decision Trees}
 
 Decision trees classify and predict from learned data. We applied the decision tree program to car buyers, the census, congressional voting records, and CPU performance data.
 
+\subsection{Data}
+Data is presented in this way
+
+\subsection{Construction}
+The general method of creating the decision tree is to ask the most dividing question first, divide into different groups and repeat with those groups. In our case, the "question" is splitting the data into groups based on an attribute.
+
+To decide on this "best question", we define the informational entropy $H(X)$ of a set $X$ as 
+
+\[
+H(X) = \sum{(-p^+ \log_2{p^+} - p^- \log_2{p^-})}
+\]
+
+where $p^+$ is the proportion of positive examples, and $p^-$ is the proportion of negative examples in the set.
+
+Using $H(X)$, the information gain of a given question acting on set $A$ is
+
+\[
+H(A) - \sum_V{\frac{|Set V|}{|Set A|}H(V)}
+\]
+
+where the sum iterates through every set of positive examples $V$ (the different sets the question splits the data into). The "best question" is the attribute with the highest information gain.
+
+To finish the decision tree, splitting data on the best attribute until a certain threshold of gain is reached.
+
+\subsection{Usage and Results}
+
+Usage and results
+
+\subsection{Conclusion}
+
+What we learned
+
 \section{Genetic Algorithms}
 
-Genetic algorithms find parameters to optimize a given function. The hungarian algorithm - ha - is a specific algorithm to maximally select elements of a matrix. We used it in combination with a genetic algorithm to create mathteam, a program to optimize math team performance.
+Genetic algorithms find parameters to optimize a given function. We used it in combination with a modified algorithm that maximally selects elements of a matrix to create program that optimizes math team performance. In this section, we will explain our implementation of a genetic algorithm, as well as explain our larger program.
 
 \section{Hidden Markov Models} 
-Hidden markov model algorithms perform pattern recognition. From an extracted model, the Viterbi algorithm allows prediction of underlying states from observed states.
+Hidden markov model algorithms perform pattern recognition. From an extracted model, the Viterbi algorithm allows prediction of underlying states from observed states. 
 
 \section{Artificial Neural Nets}
-A form of function approximation learning. The project includes a neural net for optical character recognition.
+Artificial neural nets are a form of function approximation learning. They mimic the action of neurons: the output of each node is a function of the inputs from the previous layer. Our project includes a neural net for optical character recognition.
+
+
 
 \end{document}

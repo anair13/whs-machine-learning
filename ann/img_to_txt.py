@@ -8,6 +8,7 @@ Data from:
 from PIL import Image
 from itertools import product
 import glob, os
+import pickle
 
 def get_bits(file, size):
     image = Image.open(file)
@@ -52,28 +53,34 @@ def image_to_bits(image, size):
         maxx += dif / 2
     image = image.crop((minx, miny, maxx, maxy))
     image.thumbnail((size, size))
-    str = ""
+    ret = []
     pix = image.load()
     for x in range(size):
         for y in range(size):
             if pix[x, y] == (0, 0, 0):
-                str += "1"
+                ret.append(1)
             else:
-                str += "0"
-    return str
+                ret.append(0)
+    return ret
 
-dirs = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62"]
+dirs = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", '11', '12', 
+'13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', 
+'26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', "37", "38", 
+"39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", 
+"52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62"]
 
 def get_all_bits():
-    results = open("ocr.txt", "w")
+    results = []
     for i in range(len(dirs)):
         print("starting folder", dirs[i])
         path = "characters/Hnd/Img/Sample0" + dirs[i] + "/*.png"
+        suffix = [0] * i + [1] + [0] * (61 - i)
         for file in glob.glob(path):
             try:
-                results.write(get_bits(file, 10) + "0" * i + "1" + "0" * (35 - i) + "\n")
+                results.append(get_bits(file, 10) + suffix)
             except SyntaxError:
-                print("error occurred at " + file)
+                print(file, "did not load")
+    pickle.dump(results, open('ocr.txt', 'wb'), protocol = 2)
             
 if __name__ == "__main__":
     get_all_bits()

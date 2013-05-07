@@ -1,28 +1,9 @@
 """Learns to do optical character recognition using artificial neural nets"""
 
+from __future__ import print_function
 import pickle
 from network import *
-
-def output_to_text(out):
-    """Makes neuron output readable"""
-    i = out.index(1)
-    i = i + (87 if i > 9 else 48)
-    return chr(i)
-    
-
-    
-def print_bitstring(out, size = 10):
-    for i in range(size):
-        for j in range(size):
-            print(out[size * i + j], end = "")
-        print()
-        
-def get_char(n, input_string):
-    o = n.output(input_string)
-    i = o.index(max(o))
-    i = i + (87 if i > 9 else 48)
-    return chr(i)
-
+from ocr import *
 
 characters = "abcdefghijklmnopqrstuvwxyz0123456789"
 
@@ -91,7 +72,7 @@ def pretty_print(stats):
     print("\nSummary")
     print(test_cases, "test cases")
     print(correct, "correct")
-    print("{:.4f} ratio correct".format(correct/test_cases))
+    print("{:.4f} ratio correct".format(1.0*correct/test_cases))
 
 def learning(layers, training_examples, o_type, network, learning_rate = .01):
     """Returns a trained Network
@@ -127,7 +108,7 @@ def testing(n, testing_examples):
     tests = []
     stats = {}
     for i in testing_examples:
-        t = (output_to_text(i[-36:]), get_char(n, i))
+        t = (output_to_text(i[-62:]), get_char(n, i))
         tests.append(t)
         letter_stat = stats.setdefault(t[0], {})
         letter_stat[t[1]] = letter_stat.setdefault(t[1], 0) + 1
@@ -135,24 +116,17 @@ def testing(n, testing_examples):
         
     total = len(tests)
     correct = sum(e==o for e, o in tests)
-    return correct/total
+    return 1.0 * correct / total
     
 if __name__ == "__main__":
-    training_examples = []
-    for line in open('ocr.txt', 'r'):
-        s = line[:-1]
-        l = []
-        for i in s:
-            l.append(float(i))
-        training_examples.append(l)
-    layers = [100, 50, 36]
+    training_examples = pickle.load(open('ocr.txt', 'rb'))
+    layers = [100, 100, 62]
     
     testing_examples = []
-    
     for i,c in enumerate(training_examples):
         if(i%55<10):
             testing_examples.append(c)
-            del(c)
+            del(training_examples[i])
     
     #create new file        
     out = open("graph.csv", 'w')

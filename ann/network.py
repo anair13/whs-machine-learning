@@ -55,7 +55,7 @@ class Neuron:
 
 def activation(weights, inputs):
     """Spits out sum of weighted inputs"""
-    return sum(w * float(i) for w, i in zip(weights, inputs))
+    return sum(w * i for w, i in zip(weights, inputs))
 
 def disc_output(weights, inputs, threshold = 1):
     """Threshold-based, returns 0 or 1"""

@@ -7,7 +7,7 @@ from network import *
 def output_to_text(out):
     """Makes neuron output readable"""
     i = out.index(1)
-    i = i + (87 if i > 9 else 48)
+    i = i + (48 if i < 10 else 87 if i < 36 else 29)
     return chr(i)
     
 def print_bitstring(out, size = 10):
@@ -19,10 +19,10 @@ def print_bitstring(out, size = 10):
 def get_char(n, input_string):
     o = n.output(input_string)
     i = o.index(max(o))
-    i = i + (87 if i > 9 else 48)
+    i = i + (48 if i < 10 else 87 if i < 36 else 29)
     return chr(i)
 
-characters = "abcdefghijklmnopqrstuvwxyz0123456789"
+characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 def counting(stats):
     results = {}
@@ -89,33 +89,26 @@ def pretty_print(stats):
     print("\nSummary")
     print(test_cases, "test cases")
     print(correct, "correct")
-    print("{:.4f} ratio correct".format(correct/test_cases))
+    print("{:.4f} ratio correct".format(1.0 * correct / test_cases))
 
 if __name__ == "__main__":
-    training_examples = []
-    for line in open('ocr.txt', 'r'):
-        s = line[:-1]
-        l = []
-        for i in s:
-            l.append(float(i))
-        training_examples.append(l)
-    layers = [100, 50, 36]
+    training_examples = pickle.load(open('ocr.txt', 'rb'))
+    layers = [100, 100, 62]
     
     testing_examples = []
-    
-    for i,c in enumerate(training_examples):
-        if(i%55<10):
+    for i, c in enumerate(training_examples):
+        if i % 55 < 10:
             testing_examples.append(c)
-            del(c)
+            del(training_examples[i])
         
-    n = learn(layers, training_examples * 30, cont_output, .5)
+    n = learn(layers, training_examples * 5, cont_output, .5)
     n.save("ocr_save")
 
     # model built, now test
     tests = []
     stats = {}
     for i in testing_examples:
-        t = (output_to_text(i[-36:]), get_char(n, i))
+        t = (output_to_text(i[-62:]), get_char(n, i))
         tests.append(t)
         letter_stat = stats.setdefault(t[0], {})
         letter_stat[t[1]] = letter_stat.setdefault(t[1], 0) + 1
