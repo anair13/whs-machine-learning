@@ -12,4 +12,4 @@ class Attribute:
         return self.name
     
     def __repr__(self):
-        return "Attribute('"+str(self.name)+"',"+str(self.values)+")"
+        return "Attribute('" + str(self.name) + "', " + str(self.values) + ")"

@@ -1,7 +1,7 @@
 from network import *
 
-layers = [2, 2, 2]
-connections = [
+layers = [2, 2]
+'''connections = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
     [5, 0, 0, 0, 0, 0],
@@ -16,7 +16,6 @@ connections = [
     [1, 0, 0, 0,],
     [0, 1, 0, 0,],
 ]
-'''
 training_examples = [[5, 0, 1, 0.5], [0, 5, 0.5, 1], [5, 5, 1, 1], [-5, 0, 0, 0.5], [0, -5, 0.5, 0], [-5, -5, 0, 0]]
 
 real_n = Network(connections, layers, cont_output)

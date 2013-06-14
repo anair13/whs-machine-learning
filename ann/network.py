@@ -11,6 +11,7 @@ class Network(object):
         self.connections = connections # neurons x neurons array
     
     def __str__(self):
+        """prints out the connection matrix"""
         s = ""
         for n in self.connections:
             for i in n:
@@ -31,7 +32,6 @@ class Network(object):
     def error(self, training_example):
         output = self.output(training_example)
         expected_output = training_example[-self.layers[-1]:]
-        # print(training_example, expected_output, output)
         return .5 * sum((float(o) - float(e))**2 for o, e in zip(output, expected_output))
     
     def save(self, name):
@@ -66,7 +66,7 @@ def cont_output(weights, inputs):
     return 1 / (1 + math.exp(-activation(weights, inputs)))
 
 def learn(layers, training_examples, o_type, learning_rate = .01):
-    """Returns a trained Network
+    """Returns a trained Network using backwards propagation
     layers = [num_inputs, hidden_layer_1, ... , num_outputs]
     training_examples = [(input1, input2, input3, ..., output1, output2)]
     """
@@ -74,6 +74,7 @@ def learn(layers, training_examples, o_type, learning_rate = .01):
     num_inputs = layers[0]
     num_outputs = layers[-1]
     
+    #creating and setting up the network
     connections = []
     for i in range(sum(layers)):
         c = []
@@ -91,24 +92,13 @@ def learn(layers, training_examples, o_type, learning_rate = .01):
             c.append(0)
         connections.append(c)
     n = Network(connections, layers, cont_output)
-    
     random.shuffle(training_examples)
     
+    #training begins here
     for k, t in zip(range(len(training_examples)), training_examples):
-       
-        """print("training", t, end = " ")
-        print("error before:", n.error(t), end = " ")
-        print(k, "outputs", n.output(t))"""
-        
-        if k % 100 == 0:
+        if k % 100 == 0: #print out to keep track of learning
             print("learned example", k)
-
         backwards_propagate(n, t[:num_inputs], t[-num_outputs:], learning_rate)
-        
-        """print("after:", n.error(t), "trained", k, end = " ")
-        print("outputs", n.output(t))
-        print(n)"""
-        
     return n
     
 def backwards_propagate(network, training_example, training_outputs, l_rate = .01):
@@ -118,7 +108,7 @@ def backwards_propagate(network, training_example, training_outputs, l_rate = .0
     
     real_outputs = network.output(training_example)
     for i, n in enumerate(neurons[-layers[-1]:]): # calculate deltas of outputs
-        n.delta = training_outputs[i] - real_outputs[i] 
+        n.delta = training_outputs[i] - real_outputs[i]
         
     for l in range(len(layers) - 2, 0, -1): # iterate backward, excluding ends
         start = sum(layers[:l])
@@ -140,6 +130,7 @@ def backwards_propagate(network, training_example, training_outputs, l_rate = .0
     return network
 
 if __name__ == "__main__":
+    """Testing code for a simple network"""
     con = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],

@@ -16,7 +16,7 @@ class HMM:
         self.states = list(start.keys())
         self.observations = list(emission[self.states[0]].keys())
         
-        # storing them as matrices because... why not?
+        # storing them as matrices is currently unnecessary
         # self.start_matrix = np.matrix([start[state] for state in self.states])
         # self.trans_matrix = np.matrix([[transition[s][e] for e in self.states] for s in self.states])
         # self.emiss_matrix = np.matrix([[emission[s][e] for e in self.observations] for s in self.states])
@@ -47,13 +47,6 @@ class HMM:
         print(self.start)
         print(self.transition)
         print(self.emission)
-        # print(self.start_matrix)
-        # print(self.trans_matrix)
-        # print(self.emiss_matrix)
-    
-    def __repr__(self):
-        "print table of HMM matrices"
-        return ""
 
 def pick(m):
     """Pick an element from a map {element: probability}

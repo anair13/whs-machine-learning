@@ -7,7 +7,7 @@ from network import *
 def output_to_text(out):
     """Makes neuron output readable"""
     i = out.index(1)
-    i = i + (48 if i < 10 else 87 if i < 36 else 29)
+    i = i + (48 if i < 10 else 55 if i < 36 else 61)
     return chr(i)
     
 def print_bitstring(out, size = 10):
@@ -19,12 +19,13 @@ def print_bitstring(out, size = 10):
 def get_char(n, input_string):
     o = n.output(input_string)
     i = o.index(max(o))
-    i = i + (48 if i < 10 else 87 if i < 36 else 29)
+    i = i + (48 if i < 10 else 55 if i < 36 else 61)
     return chr(i)
 
 characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 def counting(stats):
+    """counts all the true positives, false positives, and false negatives"""
     results = {}
     for char in characters:
         #don't need true negative
@@ -46,7 +47,7 @@ def precision(results = None, stats = None):
     precision = (true positives / (true positives + false positives))
     """
     r = results if results else counting(stats)
-    return{c: 1.0 * r[c]['tp']/(r[c]['tp']+r[c]['fp']) if r[c]['tp']+r[c]['fp'] != 0 else 0 for c in r}
+    return {c: 1.0 * r[c]['tp']/(r[c]['tp']+r[c]['fp']) if r[c]['tp']+r[c]['fp'] != 0 else 0 for c in r}
         
 def recall(results = None, stats = None):
     """
@@ -69,6 +70,7 @@ def harmonic_mean(precision = None, recall = None, results = None, data = None):
      return{c: 2.0 * (p[c] * r[c])/(p[c] + r[c]) if p[c]+r[c] != 0 else 0 for c in p}
 
 def pretty_print(stats):
+    """prints out the results in a nice looking way"""
     results = counting(stats)
     p = precision(results)
     r = recall(results)
@@ -92,6 +94,7 @@ def pretty_print(stats):
     print("{:.4f} ratio correct".format(1.0 * correct / test_cases))
 
 if __name__ == "__main__":
+    """trains on the majority of our data, tests on the remainder"""
     training_examples = pickle.load(open('ocr.txt', 'rb'))
     layers = [100, 100, 62]
     
@@ -101,7 +104,7 @@ if __name__ == "__main__":
             testing_examples.append(c)
             del(training_examples[i])
         
-    n = learn(layers, training_examples * 5, cont_output, .5)
+    n = learn(layers, training_examples * 30, cont_output, .5)
     n.save("ocr_save")
 
     # model built, now test

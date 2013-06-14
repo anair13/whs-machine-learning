@@ -20,16 +20,13 @@ class Dataset:
         return self.root
 
 def fromFile(name, index = -1, data_in = ".data", names_in = ".names", class_name = "class"):
-    """
-    Assumes data is file_name.data
+    '''Assumes data is file_name.data
     Attributes from file_name.names
     Index is the index of the class attribute
-    """
+    '''
     file_data = name + data_in
     file_names = name + names_in
-    
-    #os.chdir()
-        
+            
     # parse .data file for data    
     text = open(os.path.dirname(__file__) + '/../data/' + file_data, 'r').read().split('\n')
     data = [[value.strip() for value in line.split(',')] for line in text if line]
@@ -57,33 +54,36 @@ def fromFile(name, index = -1, data_in = ".data", names_in = ".names", class_nam
     return Dataset(attributes, data)
          
 def discretize(name, values, data):
-    '''
-    Takes the name, list of discrete values, and column of data for the attribute
+    '''Takes the name, list of discrete values, and column of data for the attribute
     Returns an attribute and data with discrete values
     '''
     for i, number in enumerate(data):
         for value in values:
-            if int(number) <= int(value[value.find('-')+1:] if '-' in value else value):
+            # compares number to upper bound of range (e.g. 1-10) or single value
+            if int(number) <= int(value[value.find('-') + 1:] if '-' in value else value):
                 data[i] = value
                 break
     return Attribute(name, values), data
 
 def test(dataset, percent_traindata = 50.0, prune = 0):
-        """
-        Test the data by splitting it into testing and training data
-        The percent_traindata is approximate, uses math.random"""
-        traindata = []
-        testdata = []
-        for record in dataset.data:
-            traindata.append(record) if random.random() < percent_traindata/100.0 else testdata.append(record)
+    '''Test the data by splitting it into testing and training data
+    The percent_traindata is approximate, uses math.random
+    '''
+    traindata = []
+    testdata = []
+    for record in dataset.data:
+        if random.random() < percent_traindata / 100.0:
+            traindata.append(record)
+        else:
+            testdata.append(record)
+    
+    print("traindata length:", len(traindata))
+    print("testdata length:", len(testdata))
+    if not (traindata and testdata):
+        print("traindata or testdata is empty, make percent closer to 50")
         
-        print("traindata length:", len(traindata))
-        print("testdata length:", len(testdata))
-        if not(traindata and testdata):
-            print("traindata or testdata is empty, make percent closer to 50")
-            
-        temp_dataset = Dataset(dataset.attributes, traindata)
-        temp_r = temp_dataset.tree()
-        temp_r.prune(prune)
-        
-        return temp_r, temp_r.stats(testdata)
+    temp_dataset = Dataset(dataset.attributes, traindata)
+    temp_r = temp_dataset.tree()
+    temp_r.prune(prune)
+    
+    return temp_r, temp_r.stats(testdata)
