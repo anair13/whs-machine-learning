@@ -1,10 +1,12 @@
 import pickle
 from ocr import *
 from Tkinter import *
+import tkFont
 from PIL import *
 import ImageDraw
 from img_to_txt import *
 from network import *
+from threading import Timer
 
 class PixelBoard:
     
@@ -57,6 +59,7 @@ class DrawingBoard:
         self.radius = 15
         self.network = network
         self.up = False
+        self.print_timer = 0
         
         self.image = Image.new("RGB", (self.square, self.square), (255, 255, 255))
         self.draw = ImageDraw.Draw(self.image)
@@ -83,6 +86,9 @@ class DrawingBoard:
     def click(self, event):
         self.up = True
         self.draw_circle(event)
+        if self.print_timer:
+            self.print_timer.cancel()
+        self.print_timer = Timer(1.0, self.recognize, [event])
         self.update()
     
     def motion(self, event):
@@ -99,17 +105,21 @@ class DrawingBoard:
     
     def release(self, event):
         self.up = False
+        self.print_timer.start()
     
     def recognize(self, event):
         bitstring = image_to_bits(self.image, 10)
         l = []
         for i in bitstring:
             l.append(float(i))
-        print(get_char(self.network, l))
+        s = get_char(self.network, l)
+        print(s)
         
         self.image = Image.new("RGB", (self.square, self.square), (255, 255, 255))
         self.draw = ImageDraw.Draw(self.image)
         self.canvas.delete(ALL)
+        tempfont = tkFont.Font(family='Helvetica',size = 50)
+        self.canvas.create_text(self.square / 2, self.square - 50, text = s, font = tempfont)
         
     def update(self):
         self.canvas.update_idletasks()
