@@ -1,6 +1,7 @@
 from Tkinter import * # change to "tkinter" if using python3
 from PIL import ImageTk, Image
-from MoveTree import *
+# the module imported below contains the computer Brain
+from AI import *
 import cProfile
 
 class Board:
@@ -43,7 +44,7 @@ class Board:
         self.canvas.pack(side=LEFT)
         
         self.canvas_heat = Canvas(self.master, bg="white", width=400, height=400)
-        self.canvas_heat.pack(side=LEFT)      
+        self.canvas_heat.pack(side=LEFT)
         
         self.square = 50
         self.selected = None
@@ -64,7 +65,7 @@ class Board:
         if not self.position:
             print("game is over")
             self.canvas.update_idletasks()
-            return   
+            return
         self.canvas.delete(ALL)
         for i in range(8):
             for j in range(8):
@@ -79,7 +80,7 @@ class Board:
         if not self.position:
             print("game is over")
             self.canvas.update_idletasks()
-            return   
+            return
         self.canvas_heat.delete(ALL)
         for i in range(8):
             for j in range(8):
@@ -87,7 +88,7 @@ class Board:
                 self.canvas_heat.create_rectangle(self.square * i, self.square * j, self.square * (i+1), self.square * (j+1), fill=color)
                 self.canvas_heat.create_text(self.square * i + self.square/2,
                     self.square * j + self.square/2, text = str(self.position.white_heat_map[8 * j + i]) + "|" + str(self.position.black_heat_map[8 * j + i]))
-        self.canvas_heat.update_idletasks()                        
+        self.canvas_heat.update_idletasks()
     
     def click(self, event):
         self.selected = event.y / self.square * 8 + event.x / self.square
@@ -138,7 +139,9 @@ class Board:
             self.update_with_board()
             self.update_with_heatmap()
             
-            ai_move = self.brain.get_move(move)
+            print(move)
+
+            ai_move = self.brain.get_move(self.position)
             self.position = make_move(self.position, *ai_move)
             self.move_list_text.insert(INSERT, move_to_string(ai_move) + " " * (11 - len(move_to_string(ai_move))))
             
