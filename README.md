@@ -9,8 +9,7 @@ Operating Instructions
 Each directory is a separate project.
 
 Artificial neural nets - `ann` - a form of function approximation learning. 
-The project includes a neural net for optical character recognition. Run 
-`ann/ocr_gui.py` for the character recognition demo.
+The project includes a neural net for optical character recognition.
 
 Genetic algorithms - `ga` - optimize a given function. The hungarian 
 algorithm - `ha` - is a specific algorithm to maximally select elements of a 
@@ -27,10 +26,12 @@ records, and CPU performance data.
 
 Authors
 -------
-Kevin Gao - kmgao2@illinois.edu  
-Matthew Li - matthew.yj.li@gmail.com  
-Ashvin Nair - anair17@berkeley.edu  
-Saavan Patel - saavan@berkeley.edu  
+Kevin Gao  
+Matt Li  
+Ashvin Nair  
+Saavan Patel  
+
+
 
 
 
